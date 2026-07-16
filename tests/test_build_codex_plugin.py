@@ -242,5 +242,22 @@ class PluginGenerationTests(unittest.TestCase):
             self.assertIn("current", current.stdout)
 
 
+class WorkflowTests(unittest.TestCase):
+    def test_namespace_check_does_not_pipe_prompt_into_grep_q(self) -> None:
+        workflow = (REPO_ROOT / ".github" / "workflows" / "codex-plugin.yml").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertNotIn("| grep -q", workflow)
+        self.assertIn(
+            'codex debug prompt-input "test" > "$RUNNER_TEMP/codex-prompt.json"',
+            workflow,
+        )
+        self.assertIn(
+            "grep -q 'mattpocock-skills:code-review' \"$RUNNER_TEMP/codex-prompt.json\"",
+            workflow,
+        )
+
+
 if __name__ == "__main__":
     unittest.main()

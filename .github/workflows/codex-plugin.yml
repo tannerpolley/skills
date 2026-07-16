@@ -44,5 +44,5 @@ jobs:
 
       - name: Verify namespaced skill discovery
         run: |
-          codex debug prompt-input "test" \
-            | grep -q 'mattpocock-skills:code-review'
+          codex debug prompt-input "test" > "$RUNNER_TEMP/codex-prompt.json"
+          grep -q 'mattpocock-skills:code-review' "$RUNNER_TEMP/codex-prompt.json"
