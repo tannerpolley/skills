@@ -1,0 +1,30 @@
+# Generated Codex plugin
+
+Do not edit this directory by hand. Regenerate it with `python3 scripts/build-codex-plugin.py`.
+
+The source allowlist is `.claude-plugin/plugin.json`.
+
+## Included skills
+
+- `skills/engineering/ask-matt`
+- `skills/engineering/diagnosing-bugs`
+- `skills/engineering/grill-with-docs`
+- `skills/engineering/triage`
+- `skills/engineering/improve-codebase-architecture`
+- `skills/engineering/setup-matt-pocock-skills`
+- `skills/engineering/tdd`
+- `skills/engineering/to-spec`
+- `skills/engineering/to-tickets`
+- `skills/engineering/wayfinder`
+- `skills/engineering/implement`
+- `skills/engineering/prototype`
+- `skills/engineering/research`
+- `skills/engineering/domain-modeling`
+- `skills/engineering/codebase-design`
+- `skills/engineering/code-review`
+- `skills/engineering/resolving-merge-conflicts`
+- `skills/productivity/grill-me`
+- `skills/productivity/grilling`
+- `skills/productivity/handoff`
+- `skills/productivity/teach`
+- `skills/productivity/writing-great-skills`
