@@ -284,6 +284,17 @@ class PluginGenerationTests(unittest.TestCase):
 
 
 class WorkflowTests(unittest.TestCase):
+    def test_job_environment_uses_a_context_available_before_runner_start(self) -> None:
+        workflow = (REPO_ROOT / ".github" / "workflows" / "codex-plugin.yml").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertNotIn("CODEX_HOME: ${{ runner.temp }}", workflow)
+        self.assertIn(
+            "CODEX_HOME: ${{ github.workspace }}/.codex-ci-home",
+            workflow,
+        )
+
     def test_namespace_check_does_not_pipe_prompt_into_grep_q(self) -> None:
         workflow = (REPO_ROOT / ".github" / "workflows" / "codex-plugin.yml").read_text(
             encoding="utf-8"

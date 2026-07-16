@@ -12,7 +12,7 @@ jobs:
     name: Validate generated plugin
     runs-on: ubuntu-latest
     env:
-      CODEX_HOME: ${{ runner.temp }}/codex-home
+      CODEX_HOME: ${{ github.workspace }}/.codex-ci-home
     steps:
       - name: Checkout
         uses: actions/checkout@v4
