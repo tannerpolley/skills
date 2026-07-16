@@ -64,7 +64,23 @@ Two ways to install, two philosophies:
 - **[skills.sh](https://skills.sh/mattpocock/skills)** copies the skills into your project so you can hack on them and make them your own.
 - **The plugin** keeps them as a read-only, always-current bundle you don't edit — best when you just want my set to work and follow along as it evolves.
 
-> Using Codex or another agent? The [skills.sh installer](https://skills.sh/mattpocock/skills) already installs these skills into Codex and other Agent-Skills-standard harnesses today. A native Codex plugin is on the roadmap — see [`.agents/adr/0002-ship-as-a-claude-code-plugin.md`](./.agents/adr/0002-ship-as-a-claude-code-plugin.md).
+## Install as a Codex plugin
+
+This fork packages the promoted engineering and productivity skills as one native Codex plugin. Install its marketplace and plugin from the shell:
+
+```bash
+codex plugin marketplace add tannerpolley/skills
+codex plugin add mattpocock-skills@tannerpolley-skills
+```
+
+Start a new Codex task after installation so the plugin skills appear under the `mattpocock-skills:` namespace. Run `mattpocock-skills:setup-matt-pocock-skills` once per repository before using the engineering workflows.
+
+The files under `plugins/mattpocock-skills/` are generated from the promoted-skill allowlist in `.claude-plugin/plugin.json`. Do not edit them by hand. After changing a promoted source skill or the allowlist, regenerate and verify the bundle:
+
+```bash
+python3 scripts/build-codex-plugin.py
+python3 scripts/build-codex-plugin.py --check
+```
 
 ## Why These Skills Exist
 

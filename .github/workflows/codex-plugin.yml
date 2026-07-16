@@ -1,0 +1,48 @@
+name: Codex Plugin
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate generated plugin
+    runs-on: ubuntu-latest
+    env:
+      CODEX_HOME: ${{ github.workspace }}/.codex-ci-home
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run generator tests
+        run: python3 -m unittest -v tests.test_build_codex_plugin
+
+      - name: Check generated output
+        run: python3 scripts/build-codex-plugin.py --check
+
+      - name: Install Codex CLI
+        run: npm install --global @openai/codex
+
+      - name: Install plugin from local marketplace
+        run: |
+          mkdir -p "$CODEX_HOME"
+          codex plugin marketplace add "$GITHUB_WORKSPACE"
+          codex plugin add mattpocock-skills@tannerpolley-skills
+
+      - name: Verify namespaced skill discovery
+        run: |
+          codex debug prompt-input "test" > "$RUNNER_TEMP/codex-prompt.json"
+          grep -q 'mattpocock-skills:code-review' "$RUNNER_TEMP/codex-prompt.json"
