@@ -124,6 +124,8 @@ def _prepare_output(repo_root: Path, output_root: Path) -> None:
     output = output_root.resolve()
     if output == root or root.is_relative_to(output):
         raise BuildError(f"refusing to replace repository or its parent: {output}")
+    if output.is_relative_to(root) and not output.is_relative_to(root / "plugins"):
+        raise BuildError(f"output inside repository must be under plugins: {output}")
     if output.exists():
         if not output.is_dir():
             raise BuildError(f"output path is not a directory: {output}")
@@ -136,12 +138,19 @@ def build_plugin(repo_root: Path, output_root: Path) -> int:
     output = output_root.resolve()
     source_manifest = load_source_manifest(root)
     selected = select_skills(root, source_manifest)
+    manifest = _plugin_manifest(source_manifest)
+    normalized_markdown = {
+        skill.name: normalize_skill_markdown(
+            (skill.source / "SKILL.md").read_text(encoding="utf-8")
+        )
+        for skill in selected
+    }
     _prepare_output(root, output)
 
     manifest_dir = output / ".codex-plugin"
     manifest_dir.mkdir()
     (manifest_dir / "plugin.json").write_text(
-        json.dumps(_plugin_manifest(source_manifest), indent=2, sort_keys=True) + "\n",
+        json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
     )
 
@@ -152,7 +161,7 @@ def build_plugin(repo_root: Path, output_root: Path) -> int:
         shutil.copytree(skill.source, destination)
         skill_markdown = destination / "SKILL.md"
         skill_markdown.write_text(
-            normalize_skill_markdown(skill_markdown.read_text(encoding="utf-8")),
+            normalized_markdown[skill.name],
             encoding="utf-8",
         )
 

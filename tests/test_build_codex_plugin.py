@@ -29,7 +29,18 @@ def write_manifest(root: Path, skills: list[str]) -> None:
     manifest_dir = root / ".claude-plugin"
     manifest_dir.mkdir(parents=True)
     (manifest_dir / "plugin.json").write_text(
-        json.dumps({"skills": skills}),
+        json.dumps(
+            {
+                "name": "example-skills",
+                "version": "1.0.0",
+                "description": "Example skills.",
+                "author": {"name": "Example"},
+                "homepage": "https://example.com",
+                "license": "MIT",
+                "keywords": ["example"],
+                "skills": skills,
+            }
+        ),
         encoding="utf-8",
     )
 
@@ -240,6 +251,36 @@ class PluginGenerationTests(unittest.TestCase):
             )
             self.assertEqual(current.returncode, 0, current.stderr)
             self.assertIn("current", current.stdout)
+
+    def test_output_inside_repository_must_be_under_plugins(self) -> None:
+        module = load_module()
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = write_skill(root, "skills/engineering/example")
+            write_manifest(root, ["./skills/engineering/example"])
+
+            with self.assertRaisesRegex(module.BuildError, "must be under plugins"):
+                module.build_plugin(root, root / "skills" / "generated")
+
+            self.assertTrue((source / "SKILL.md").is_file())
+            self.assertFalse((root / "skills" / "generated").exists())
+
+    def test_invalid_source_does_not_replace_existing_output(self) -> None:
+        module = load_module()
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            source = write_skill(root, "skills/engineering/example")
+            (source / "SKILL.md").write_text("Instructions only.\n", encoding="utf-8")
+            write_manifest(root, ["./skills/engineering/example"])
+            output = root / "plugins" / "example-skills"
+            output.mkdir(parents=True)
+            marker = output / "existing.txt"
+            marker.write_text("keep\n", encoding="utf-8")
+
+            with self.assertRaisesRegex(module.BuildError, "start with YAML frontmatter"):
+                module.build_plugin(root, output)
+
+            self.assertEqual(marker.read_text(encoding="utf-8"), "keep\n")
 
 
 class WorkflowTests(unittest.TestCase):
