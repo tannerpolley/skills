@@ -11,7 +11,7 @@ Before planning or review disposition, read [shared review recovery](/home/tnnrp
 
 ## Hard boundary
 
-Run only during active user turns. Never create or use automations, scheduled tasks, heartbeats, cron, timers, delayed wakeups, or background watchers. After a successful direct handoff, the sender may call app-task `wait_threads` exactly once with `timeoutMs: 0` for the exact recipient only to confirm its state. Never pass a wait cursor, wait for completion, or call again for that handoff. Later progress arrives through the return baton or a new user turn. If CI or another external condition is still pending, report it and wait for a new user message.
+Run only during active user turns. Never create or use automations, scheduled tasks, heartbeats, cron, timers, delayed wakeups, background watchers, or `wait_threads`. After a successful direct handoff, call app-task `read_thread` once for the exact recipient and verify that its recent turns contain the exact handoff prompt. This is a delivery receipt, not progress monitoring: use no cursor, do not read again for that handoff, and stop after verification. Later progress arrives through the return baton or a new user turn. If CI or another external condition is still pending, report it and wait for a new user message.
 
 ## Start
 
@@ -40,7 +40,7 @@ When the manager later requests plan-fidelity review, compare the local candidat
 The manager is the only role that mutates Git or GitHub. Enforce the root no-overengineering rule in assignments and acceptance: the only accepted repair removes all broken code within the diagnosed boundary and replaces it with the simplest correct solution. Never dispatch or accept bandaid layers over problematic code; preserve required behavior, safeguards, and unrelated work.
 
 1. Read the approved plan, verify the checkout, reuse or create the task feature branch, and turn the plan into a bounded worker assignment with the same outcome, non-goals, acceptance, and correction history reviewers will receive.
-2. Set worker as holder in `status.md`, send one concise handoff, and take only the single immediate confirmation snapshot allowed above. If that snapshot already shows completion or needed attention, continue at step 3; otherwise stop and await the return baton or a new user turn.
+2. Set worker as holder in `status.md`, send one concise handoff, complete the single delivery-receipt read above, and stop. Continue at step 3 only after the worker returns the baton or the user starts a new turn.
 3. When work returns, inspect the complete diff and evidence, including Serena use or its concrete fallback reason for supported code work. Verify that repairs replace the defective implementation at its responsible boundary rather than mask its symptoms. Classify findings before making tiny obvious in-scope replacements or sending substantive replacements to the worker under shared recovery.
 4. Run required local checks and commit a coherent candidate. Prepare local review evidence: brief, plan, candidate SHA, relevant diff, changed paths, checks, and limitations. A published PR is not a local-review prerequisite.
 5. Ask the original planner, or the accepted plan's advisor, for plan-fidelity review. Only manager acceptance and its `PASS` advance the candidate to final review; adjudicate findings against accepted scope before assigning corrections.
@@ -72,16 +72,16 @@ A handoff is complete only when the sender:
 1. writes its required artifact;
 2. updates `status.md` with the registered next holder;
 3. successfully sends that task the direct handoff message; and
-4. reports the completed handoff in its final response.
+4. completes the delivery-receipt read in [Hard boundary](#hard-boundary), then reports the completed handoff in its final response.
 
 Keep the direct message short:
 
 ```text
 $baton-pass session=<id> role=<role> action=<action> read=<absolute-session-path>
-Completion gate: return a final response only after the required artifact, holder update, and direct message to the recorded next task all succeed; otherwise restore yourself as holder and report the blocker.
+Completion gate: return a final response only after the required artifact, holder update, direct message to the recorded next task, and its single delivery-receipt read all succeed; otherwise restore yourself as holder and report the blocker.
 ```
 
-If the direct message fails or is ambiguous, restore the sender as holder, record the failed handoff in `status.md`, report it to the user, and stop. Do not retry or create a replacement task without direction.
+If the direct message fails, its result is ambiguous, or the single read does not show the exact prompt, restore the sender as holder, record the failed handoff in `status.md`, report it to the user, and stop. Do not retry, read again, or create a replacement task without direction.
 
 If a non-holder receives a manual prompt, it may read `status.md`, identify the current holder, and stop without changing repository or workflow state.
 
