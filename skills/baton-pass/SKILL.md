@@ -11,7 +11,7 @@ Before planning or review disposition, read [shared review recovery](/home/tnnrp
 
 ## Hard boundary
 
-Run only during active user turns. Never create or use automations, scheduled tasks, heartbeats, cron, timers, delayed wakeups, background watchers, or `wait_threads`. After a successful direct handoff, call app-task `read_thread` once for the exact recipient and verify that its recent turns contain the exact handoff prompt. This is a delivery receipt, not progress monitoring: use no cursor and do not read again for that handoff. Proceed only to the next already-authorized handoff in a parallel dispatch batch; otherwise stop. Later progress arrives through a return baton or a new user turn. If CI or another external condition is still pending, report it and wait for a new user message.
+Run only during active user turns. Never create or use automations, scheduled tasks, heartbeats, cron, timers, delayed wakeups, background watchers, or `wait_threads`. Treat a successful `send_message_to_thread` result naming the exact registered recipient as the sole delivery acknowledgement. Make no post-send `read_thread`, wait, or monitoring call and do not roll back the holder after that success. Proceed only to the next already-authorized handoff in a parallel dispatch batch; otherwise stop. Later progress arrives through a return baton or a new user turn. If CI or another external condition is still pending, report it and wait for a new user message.
 
 ## Start
 
@@ -43,7 +43,7 @@ The manager is the only role that mutates Git or GitHub. Enforce the root no-ove
 
 1. Read the approved plan, verify the checkout, reuse or create the task feature branch, and preserve the same outcome, non-goals, acceptance, and correction history in every worker assignment. If plan or staffing approval is still pending, obtain it before worker creation.
 2. Use sequential mode with one worker unless the plan exposes a reasonable opportunity for independent, non-overlapping assignments. In sequential mode, create one fresh worker with the recorded project ID, `environment: {type: "local"}`, and approved staffing. When parallelism is reasonable, read [parallel mode](references/parallel-mode.md) and use native input to ask the user to choose sequential or parallel execution; never infer the choice. The manager creates every worker under the selected mode.
-3. Create one numbered baton per worker, record each assignment and holder in `status.md`, send each concise handoff, and complete its single delivery-receipt read. Stop after the sequential handoff or complete parallel dispatch batch. Continue only as a numbered baton returns or the user starts a new turn.
+3. Create one numbered baton per worker, record each assignment and holder in `status.md`, and send each concise handoff to its exact registered task. Stop after the sequential handoff or complete parallel dispatch batch. Continue only as a numbered baton returns or the user starts a new turn.
 4. If a worker returns `clarification-needed`, do no implementation against that baton. Answer only when the accepted plan already resolves it unambiguously; otherwise set the advisory architect as that baton's holder, send a `design-question` handoff with the exact gap and evidence, and stop work on that baton. After `clarification-ready` returns, verify that `plan.md` contains the answer and any material change has user approval, then return the numbered baton with a revised assignment. Other independent batons may continue.
 5. When completed work returns, inspect the complete diff and evidence for that numbered baton, including Serena use or its concrete fallback reason for supported code work. Verify that repairs replace the defective implementation at its responsible boundary rather than mask its symptoms. Classify findings before making tiny obvious in-scope replacements or returning that baton to its worker under shared recovery. In parallel mode, integrate returned work only as specified in its reference.
 6. After every implementation baton is integrated, run required local checks and commit a coherent combined candidate. Prepare local review evidence: brief, plan, baton assignments, candidate SHA, relevant diff, changed paths, checks, and limitations. A published PR is not a local-review prerequisite.
@@ -76,17 +76,17 @@ A handoff is complete only when the sender:
 
 1. writes its required artifact;
 2. updates `status.md` with the registered next holder for that baton;
-3. successfully sends that task the direct handoff message; and
-4. completes the delivery-receipt read in [Hard boundary](#hard-boundary), then reports the completed handoff in its final response.
+3. receives a successful direct-message result naming that exact registered task; and
+4. reports the completed handoff in its final response.
 
 Keep the direct message short:
 
 ```text
 $baton-pass session=<id> baton=<number> role=<role> action=<action> read=<absolute-session-path>
-Completion gate: return a final response only after the required artifact, holder update, direct message to the recorded next task, and its single delivery-receipt read all succeed; otherwise restore yourself as holder of this baton and report the blocker.
+Completion gate: return a final response only after the required artifact, holder update, and direct message to the exact recorded next task all succeed; otherwise restore yourself as holder of this baton and report the blocker.
 ```
 
-If the direct message fails, its result is ambiguous, or the single read does not show the exact prompt, restore the sender as holder of that baton, record the failed handoff in `status.md`, report it to the user, and stop. Do not retry, read again, or create a replacement task without direction.
+If the direct message fails, identifies a different task, or has an ambiguous result, restore the sender as holder of that baton, record the failed handoff in `status.md`, report it to the user, and stop. Do not retry or create a replacement task without direction.
 
 If a non-holder receives a manual prompt, it may read `status.md`, identify the current holder of the named baton, and stop without changing repository or workflow state.
 
