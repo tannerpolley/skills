@@ -4,11 +4,11 @@ Read this reference whenever the manager staffs, dispatches, replaces, or receiv
 
 ## Choose with the user
 
-Transport controls lifecycle and isolation; model and effort control capability and cost. Present only currently callable combinations, recommend one with a short reason, and obtain the user's choice through native input before dispatch.
+Transport controls lifecycle and isolation; model and effort control capability and cost. A worker may use any callable model and supported reasoning effort on any transport. Luna is the default model; the manager selects its effort and recommends another model only when the fully explicit assignment remains demanding. A precise, bounded plan favors Luna; difficult diagnosis, mathematics, broad integration, or high-risk verification may justify more capability. A plan gap requires clarification rather than a stronger worker. Present only currently callable combinations, recommend one with a short reason, and obtain the user's choice through native input before dispatch.
 
-- **App task:** Prefer for difficult or long-running work, cross-turn continuity, direct user steering, or a dedicated Codex worktree. Luna fits clear bounded work; Sol or Astra fits harder, ambiguous, or larger work.
-- **Native subagent:** Prefer for small or well-specified work and bounded research, testing, or implementation that should return directly to its parent. Luna is the economical default; choose a stronger supported model when the assignment needs it.
-- **CSE-Pi:** Prefer for scientific work needing a frozen work order, sandboxed candidate, structured termination, and retained evidence. Select any supported model and effort by task difficulty; the guardrails do not depend on model tier.
+- **App task:** Prefer for difficult or long-running work, cross-turn continuity, direct user steering, or a dedicated Codex worktree.
+- **Native subagent:** Prefer for small or well-specified work and bounded research, testing, or implementation that should return directly to its parent.
+- **CSE-Pi:** Prefer for scientific work needing a frozen work order, sandboxed candidate, structured termination, and retained evidence; its guardrails do not depend on model tier.
 
 Keep one numbered baton, assignment, correction count, and current holder across transport or model changes.
 
@@ -26,6 +26,6 @@ On the terminal return, verify the child's identity and result, write or retain 
 
 ## CSE-Pi
 
-Use only a verified CSE-Pi launcher and supported model configuration. Freeze the work order, source identity, paths, non-goals, acceptance, validation, parent identity, budget, and output directory before launch. Register its work-order task ID as holder, budget model turns for the expected tool round-trips and the run to fit one supported blocking wait, then record the returned run identity. Run it once in the foreground; do not start a daemon, goal, watcher, or short polling loop. If one blocking wait cannot cover the run, recommend another transport instead.
+Use only a verified CSE-Pi launcher and supported model configuration. Write the selected model and effort into its frozen work order so Baton staffing does not depend on runtime role defaults. Freeze the source identity, paths, non-goals, acceptance, validation, parent identity, budget, and output directory before launch. Register its work-order task ID as holder, budget model turns for the expected tool round-trips and the run to fit one supported blocking wait, then record the returned run identity. Run it once in the foreground; do not start a daemon, goal, watcher, or short polling loop. If one blocking wait cannot cover the run, recommend another transport instead.
 
 Verify the terminal status, `result.json`, result hash, retained evidence, and candidate or analysis outputs before setting the manager as holder. `needs_parent_input` returns the same baton for clarification; a later CSE-Pi attempt is a new one-shot run with the inherited correction history. The manager alone applies accepted candidate changes.
