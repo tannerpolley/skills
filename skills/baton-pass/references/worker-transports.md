@@ -1,24 +1,21 @@
 # Worker transports
 
-Read this reference whenever the manager staffs, dispatches, replaces, or receives a worker.
+Read when delegating. Prefer a native direct child for bounded work that can return in the current task. Use an app-task worker for cross-turn continuity, direct user steering, or an isolated checkout. Inspect callable capabilities and honor user-selected model/effort; do not create replacement roles merely to match a default.
 
-## Choose with the user
+## Assignment and return
 
-Transport controls lifecycle and isolation; model and effort control capability and cost. A worker may use any callable model and supported reasoning effort on any transport. Luna is the default model; the manager selects its effort and recommends another model only when the fully explicit assignment remains demanding. A precise, bounded plan favors Luna; difficult diagnosis, mathematics, broad integration, or high-risk verification may justify more capability. A plan gap requires clarification rather than a stronger worker. Present only currently callable combinations, recommend one with a short reason, and obtain the user's choice through native input before dispatch.
+Give each worker the authoritative plan pointer and relevant sections, bounded objective and purpose, write paths, dependencies, checks, return target, and inherited correction history. End every native assignment with its return boundary: return only through the native final result to this direct parent; app-task discovery and messaging are outside the assignment. Record its exact returned identity and transfer only that assignment. Workers implement and verify within scope, make routine reversible choices, and return consequential gaps before dependent edits. They create no helpers and do not mutate Git/GitHub.
 
-- **App task:** Prefer for difficult or long-running work, cross-turn continuity, direct user steering, or a dedicated Codex worktree.
-- **Native subagent:** Prefer for small or well-specified work and bounded research, testing, or implementation that should return directly to its parent.
+Return changed paths, exact verification, limitations, and unresolved decisions. App-task workers use the main skill's session-record and routing-only handoff. The manager inspects the diff and evidence before accepting the result, then records the candidate and disposition once.
 
-Keep one numbered baton, assignment, correction count, and current holder across transport or model changes.
+For takeover, first stop or recall the previous writer and confirm it no longer owns active edits. Preserve its work and correction history. Reuse an available direct child for bounded follow-up; create a fresh child only when the original lifecycle cannot continue.
 
-## App task
+## Parallel work
 
-Create the worker titled exactly `Worker` in the recorded project and selected local or worktree environment. Record only the exact returned task ID. The worker writes its result, sets the manager as holder, sends the routing line from the main skill exactly once, and stops after successful delivery. The sender makes no receipt read or wait call.
+Use parallelism only for independent assignments with disjoint writes and checkable boundaries. The manager may implement a separate portion concurrently. Coupled work stays sequential; shared output files, generated artifacts and test state count as writes.
 
-## Native subagent
+Use the saved checkout for sequential work. Concurrent writes may share it only when paths and verification cannot interfere; otherwise use task-owned worktrees from one recorded base. Prepare each worker's plan/session pointers explicitly because ignored files do not follow Git. The manager serializes Git mutations and never switches or integrates a checkout while another writer is active there.
 
-Spawn one direct child by default with the selected model, effort, numbered assignment, pointers to only the needed brief or plan sections, and exact return format; record only the exact returned subagent ID. Do not rename native subagents or copy the Baton protocol or unrelated session material into their prompts. A child may receive later corrections while it remains an active direct child of the same parent and the live tool supports follow-up input. A closed child or a different parent session requires a fresh subagent.
+Process returns independently and wait through supported native events or app-task return messages. A clarification pauses its dependent assignments only. Stop affected writes if ownership overlaps; resolve routine integration within the contract and return material boundary changes to the architect/user.
 
-Use concurrent children only when the live tool contract explicitly guarantees one barrier returns the complete child set. Spawn that set, call the barrier once with every child ID, and yield completely. Without that guarantee, keep one native child or select app-task workers for parallel assignments. Do no other model work, status narration, `wait_threads`, thread reads, repeated barrier calls, or child-status/log polling while delegated work runs.
-
-On the terminal return, verify the child's identity and result, write or retain its result artifact, and set the manager as holder. The child does not send an app-task receipt.
+The manager verifies each returned checkout, diff and checks, commits accepted changes, and integrates exact commits from isolated worktrees into the candidate branch. Run combined acceptance checks after integration and retain worker worktrees until their work is safely integrated. Git guidance owns cleanup; workers never integrate each other's assignments.
