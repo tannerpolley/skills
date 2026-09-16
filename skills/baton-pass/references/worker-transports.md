@@ -17,7 +17,7 @@ Create the worker titled exactly `Worker` in the recorded project and selected l
 
 ## Native subagent
 
-Spawn one direct child titled exactly `Worker` by default with the selected model, effort, numbered assignment, pointers to only the needed brief or plan sections, and exact return format; record only the exact returned subagent ID. Do not copy the Baton protocol or unrelated session material into its prompt. A child may receive later corrections while it remains an active direct child of the same parent and the live tool supports follow-up input. A closed child or a different parent session requires a fresh subagent.
+Spawn one direct child by default with the selected model, effort, numbered assignment, pointers to only the needed brief or plan sections, and exact return format; record only the exact returned subagent ID. Do not rename native subagents or copy the Baton protocol or unrelated session material into their prompts. A child may receive later corrections while it remains an active direct child of the same parent and the live tool supports follow-up input. A closed child or a different parent session requires a fresh subagent.
 
 Use concurrent children only when the live tool contract explicitly guarantees one barrier returns the complete child set. Spawn that set, call the barrier once with every child ID, and yield completely. Without that guarantee, keep one native child or select app-task workers for parallel assignments. Do no other model work, status narration, `wait_threads`, thread reads, repeated barrier calls, or child-status/log polling while delegated work runs.
 
