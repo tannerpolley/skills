@@ -37,12 +37,14 @@ Keep visibility, default branch, allowed merge methods, branch rules, security s
 
 An explicit request to merge the exact PR authorizes verified merge/issue closure, removal of its remote feature head, and the associated local closeout without separate branch-cleanup permission. Use [Git history and recovery](../../git/references/history-and-recovery.md#merge-and-closeout) for branch mapping, integration checks, pruning, and returning the saved checkout to updated local `main`.
 
+After merge, update every issue the PR referenced: a fully resolved issue must be closed (verify the closing keyword worked, else close it with the evidence); a partially served issue gets its body's current state and remaining criteria updated, and the PR's `work:review`/`work:claimed`-style labels removed, then the repository's label reconciler (if any) run. A comment alone does not complete this.
+
 Closeout is idempotent and state-driven. Already-satisfied invariants are success. It covers safely integrated local branches associated with that exact PR, including different local names, not unrelated stale branches. When the user merges through GitHub separately, the related task completes these local invariants when it resumes or closes. Preserve dirty state, unique work, and occupied checkouts; pending auto-merge is not merge evidence.
 
 ## Worktrees and tasks
 
 - Classify provenance only from explicit task or creation context; never infer it from a filesystem path.
 - Automatically retire a clean, integrated worktree that was explicitly created by an agent as disposable orchestration state. Do not ask permission. Archive its completed task as the final action when applicable.
-- For a user-created Codex worktree task, preserve it and use native input to decide deletion/archive or retention. Return the saved task checkout to local `main` through Git closeout when safe; do not force occupied branches or destroy dirty state. Archive the task when deletion is chosen.
+- For a user-created host worktree task (ChatGPT desktop app or T3 Code), preserve it and use native input to decide deletion/archive or retention. Return the saved task checkout to local `main` through Git closeout when safe; do not force occupied branches or destroy dirty state. Archive the task when deletion is chosen.
 - Treat unknown provenance as user-created and ask.
 - Retain and report any worktree or branch with unique unmerged work; automatic disposal never destroys it.
