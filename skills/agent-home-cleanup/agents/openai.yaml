@@ -1,0 +1,7 @@
+interface:
+  display_name: "Agent Home Cleanup"
+  short_description: "Clear disk space held by Codex, Claude, T3, and pi"
+  default_prompt: "Use $agent-home-cleanup to report what can be cleared from my coding-agent homes."
+
+policy:
+  allow_implicit_invocation: true
