@@ -1,11 +1,22 @@
 ---
 name: t3-code
-description: Map of T3 Code's host tools for work on threads rather than code. Use inside T3 Code (t3_* or mcp__t3-code__* tools present) to read, message, or wait on another thread, including one in another project; answer a delegated child's question; edit a thread's message queue; fork or merge back; rename, pin, snooze, or archive a thread; send a file; or move this thread into a worktree.
+description: Map of T3 Code's host tools for work on threads rather than code. Use inside T3 Code (t3_* or mcp__t3-code__* tools present) to pick a model for delegate_task; read, message, or wait on another thread, including one in another project; answer a delegated child's question; edit a thread's message queue; fork or merge back; rename, pin, snooze, or archive a thread; send a file; or move this thread into a worktree.
 ---
 
 # T3 Code tools
 
 The T3 Code orchestration instructions already in your context own delegation, launching new threads, scheduling, worktree launches, and PR linking. This skill covers the rest. Tools may be deferred: load a tool's schema by name (in Claude Code, `ToolSearch` with `select:<name>`) before calling it, and read its description, which is authoritative for parameters.
+
+## Subagent models
+
+The model tiers come from the global rules; these are their `delegate_task` targets. Check `orchestrator_capabilities` if one is rejected.
+
+| Use | `target` |
+|---|---|
+| Exploration, diagnosis, searches, tests, any bounded task | `{"providerInstanceId":"codex","model":"gpt-6-luna","options":{"reasoningEffort":"max"}}` |
+| Strong review, or guidance for an Opus 5.5 orchestrator | `{"providerInstanceId":"codex","model":"gpt-6-astra","options":{"reasoningEffort":"xhigh"}}` |
+
+Codex agents can run these natively instead; Claude agents need `delegate_task`. Give an advisor the question, the evidence, and what you already ruled out, and treat its answer as input to your decision.
 
 ## Another thread (not your delegated child)
 
