@@ -32,6 +32,7 @@ Every write keeps the permission ceiling: you cannot drive a thread with broader
 
 ## Your delegated children
 
+- Pass `workspace: "worktree"` to `delegate_task` when a child edits code in parallel with you or its siblings: it gets its own worktree on a new branch from yours. Keep research and review children on the default. Its commits stay on its branch until you merge or cherry-pick them.
 - A child's completion wakes you. End your turn instead of polling; call `task_status` only when you need the result mid-turn.
 - Sending a child more work with `t3_thread_send` reopens its task, and that turn's result wakes you too unless the user turned that off (then read `task_status`).
 - `waitingOnUser` means the child is blocked on the user. Answer a question with `t3_pending_request_respond` on the child's thread (find it with `t3_pending_request_list` / `t3_pending_request_read`). Permission approvals are the user's to grant: relay them.
