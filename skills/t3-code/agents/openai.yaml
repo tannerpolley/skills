@@ -1,0 +1,3 @@
+interface:
+  display_name: "T3 Code Tools"
+  short_description: "Manage threads, queues, and children in T3 Code"
