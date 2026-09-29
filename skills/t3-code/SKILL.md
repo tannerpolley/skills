@@ -13,9 +13,9 @@ The model tiers come from the global rules; these are their `delegate_task` targ
 
 | Use | `target` |
 |---|---|
-| Main worker: implementation, fixes, tests; also budget review, sanity checks, managing | `{"providerInstanceId":"codex","model":"gpt-6.1-sol","options":{"reasoningEffort":"high"}}` |
+| Main worker: implementation, fixes, tests, complex diagnosis (even read-only); also budget review, sanity checks, managing | `{"providerInstanceId":"codex","model":"gpt-6.1-sol","options":{"reasoningEffort":"high"}}` |
 | The hardest implementation pieces (Opus 5.5 orchestrates by default) | `{"providerInstanceId":"claudeAgent","model":"claude-opus-5-5","options":{"effort":"high"}}` |
-| Exploration, searches, reading, diagnosis probes (not implementation) | `{"providerInstanceId":"codex","model":"gpt-6-luna","options":{"reasoningEffort":"max"}}` |
+| Lookups with a definite answer to find: searches, reading, inventories (not implementation or complex diagnosis) | `{"providerInstanceId":"codex","model":"gpt-6-luna","options":{"reasoningEffort":"max"}}` |
 | Quick, well-specified Claude-side work | `{"providerInstanceId":"claudeAgent","model":"claude-sonnet-5-5","options":{"effort":"medium"}}` |
 | Strong review, or guidance for an Opus 5.5 orchestrator | `{"providerInstanceId":"codex","model":"gpt-6-astra","options":{"reasoningEffort":"xhigh"}}` |
 
