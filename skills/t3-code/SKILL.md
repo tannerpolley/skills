@@ -15,7 +15,7 @@ The model tiers come from the global rules; these are their `delegate_task` targ
 |---|---|
 | Exploration, diagnosis, searches, tests, any bounded task | `{"providerInstanceId":"codex","model":"gpt-6-luna","options":{"reasoningEffort":"max"}}` |
 | Well-specified implementation, tests, multistep tool work on Claude (fast; `high` when harder) | `{"providerInstanceId":"claudeAgent","model":"claude-sonnet-5-5","options":{"effort":"medium"}}` |
-| Budget review or sanity check; hard work or managing as a cheaper alternative to Opus 5.5 | `{"providerInstanceId":"codex","model":"gpt-6-sol","options":{"reasoningEffort":"high"}}` |
+| Budget review or sanity check; hard work or managing as a cheaper alternative to Opus 5.5 | `{"providerInstanceId":"codex","model":"gpt-6.1-sol","options":{"reasoningEffort":"high"}}` |
 | Strong review, or guidance for an Opus 5.5 orchestrator | `{"providerInstanceId":"codex","model":"gpt-6-astra","options":{"reasoningEffort":"xhigh"}}` |
 
 Codex agents can run these natively instead; Claude agents need `delegate_task`. Give an advisor the question, the evidence, and what you already ruled out, and treat its answer as input to your decision.
