@@ -16,6 +16,7 @@ The model tiers come from the global rules; these are their `delegate_task` targ
 | Build a bounded change fast (then have Sol check it) | `{"providerInstanceId":"claudeAgent","model":"claude-opus-5-5","options":{"effort":"high"}}` |
 | Check a build: missed places, weak tests, edge cases (read-only); budget review, sanity checks, managing | `{"providerInstanceId":"codex","model":"gpt-6.1-sol","options":{"reasoningEffort":"high"}}` |
 | Build broad, cross-cutting, or correctness-critical changes; complex diagnosis (even read-only) | `{"providerInstanceId":"codex","model":"gpt-6.1-sol","options":{"reasoningEffort":"high"}}` |
+| Well-specified, contained tasks and calculations (bounded worker) | `{"providerInstanceId":"codex","model":"gpt-6.1-sol","options":{"reasoningEffort":"medium"}}` |
 | Deterministic work with one clear result; gathering evidence without making decisions | `{"providerInstanceId":"codex","model":"gpt-6-luna","options":{"reasoningEffort":"max"}}` |
 | Quick, well-specified Claude-side work | `{"providerInstanceId":"claudeAgent","model":"claude-sonnet-5-5","options":{"effort":"medium"}}` |
 | Strong review, or guidance for an Opus 5.5 orchestrator | `{"providerInstanceId":"codex","model":"gpt-6-astra","options":{"reasoningEffort":"xhigh"}}` |
