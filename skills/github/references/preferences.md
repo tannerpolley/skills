@@ -10,7 +10,8 @@ These preferences are standing workflow authority for the authenticated `tannerp
 
 ## Delivery
 
-- Apply the root authority boundary: local implementation may include focused commits; remote publication and merge need matching task authority, reused when already clear. A local-only endpoint is complete without a push or PR.
+- Mainline repositories follow the root mainline rule. GitHub `main` mirrors local `main`. A reviewed task branch merges into `main` locally, and `main` is pushed right away with no further approval. Branch protection that requires PRs overrides this: use a PR and merge it under that repository's policy.
+- Otherwise apply the root authority boundary: local implementation may include focused commits; remote publication and merge need matching task authority, reused when already clear. A local-only endpoint is complete without a push or PR.
 - An explicit merge request covers necessary prerequisites for that reviewed PR, not unrelated branch updates. A push to an already armed auto-merge PR requires merge authority as well as publication authority.
 - Use an exact closing keyword when the PR fully resolves an issue and verify closure after merge. Use non-closing references for partial work.
 
