@@ -5,7 +5,23 @@ description: Jupyter notebooks in the owner's research projects. Use when presen
 
 # Jupyter notebooks
 
-A notebook is a deliverable the owner opens in T3: Markdown stating the question, data sources, method and limits, then code cells that reproduce the result. T3's file viewer shows a notebook's **saved outputs**; it does not run cells yet (tannerpolley/t3code#208). So a notebook you hand over is always one you have already run.
+A notebook is a deliverable the owner opens in T3: Markdown stating the question, data sources, method and limits, then code cells that reproduce the result. T3's native notebook tools and viewer share one document and kernel owner when the project has notebook execution configured. Hand over saved, fresh outputs and state any execution limits.
+
+## Native tools
+
+Prefer the connected `notebook_*` tools when available. They use the authenticated thread's project and workspace, including scheduled agents; pass relative notebook paths.
+
+1. Use `notebook_create` with a valid nbformat 4 document, or `notebook_open` for the current document, stable cell IDs, revision and disk hash.
+2. Use `notebook_edit_cells` for ordered insert/update/delete/move operations with the expected revision. Preserve existing metadata and unrelated cells.
+3. Execute only when the task authorizes code execution: `notebook_run` takes selected code-cell IDs or explicit `all=true`, the current revision and a unique request ID. Reuse that ID only for identical retries.
+4. Read `notebook_read_outputs` for status, execution/source provenance and truncation. Follow output cursors within the byte limit; use `afterSequence` to await changes instead of busy polling. An unknown outcome requires explicit restart or shutdown before another run; never infer success or automatically replay code.
+5. Save with `notebook_save`, passing current revision and base disk hash. A conflict preserves the draft: reconcile the external change before saving. Done means saved outputs are fresh for the intended code cells, warnings and truncation are reported, and the owner has the file link.
+
+Use `notebook_list_kernels` to inspect available specs and owned kernels. Interrupt cancels the remaining run; wait for terminal status. Restart clears variables and preserves previous-generation outputs. Shutdown stops only the owned kernel and retains the draft for saving. Runtime permission refusals are limits to report, not a reason to bypass the tools through a shell.
+
+## Interim fallback
+
+When native tools are absent or execution is not configured, use the project's existing headless environment or JupyterLab script. Avoid a second writer while a native session or JupyterLab is editing or executing the notebook.
 
 ## Build and run one
 
