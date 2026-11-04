@@ -1,11 +1,13 @@
 ---
 name: github
-description: Work with GitHub issues, pull requests, Actions, releases, Projects, and repository settings. Use git for local repository state.
+description: Work with GitHub or Forgejo issues, pull requests, Actions, releases, Projects, and repository settings, including fj. Use git for local repository state.
 ---
 
 # GitHub
 
 Resolve the exact repository and target. Check account and permissions for actions that need them; a public read does not require a settings audit. Prefer the connected GitHub tool when it exposes the operation; use `gh` or `gh api` for missing functionality.
+
+When `origin` is the owner's Forgejo host (`tnnrpolley21-ms-7c95.taila72856.ts.net:3000`), the repository is a Forgejo repository: read [Forgejo](references/forgejo.md) and use `fj` and T3's issue tools instead of `gh`. Its GitHub namesake is a read-only copy.
 
 Read [profile preferences](references/preferences.md) for implementation delivery, repository configuration, PR creation or merge, and closeout. They define standing authority for active personal repositories, the draft-PR default, and worktree disposition. Apply only the preferences relevant to the authorized task; preserve other repositories and user work.
 
