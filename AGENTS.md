@@ -1,6 +1,6 @@
-# Local Codex skill workspace
+# Personal skill workspace
 
-This repository is the source of truth for personal Codex skills created or revised on this machine.
+This repository is the source of truth for personal agent skills created or revised on this machine.
 
 ## Layout
 
@@ -18,4 +18,4 @@ For every skill creation or revision, first read both the complete canonical `$s
 4. For a new local skill, create its per-skill symlink only after confirming that the destination name is unused.
 5. Run the skill-creator validator and verify the local symlink resolves to the repository copy before completion.
 
-Do not modify Codex's managed `.system` skills or plugin cache as part of ordinary local skill work.
+Do not modify a harness's managed `.system` skills or plugin cache as part of ordinary local skill work.
