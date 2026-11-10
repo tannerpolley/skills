@@ -1,6 +1,6 @@
 ---
 name: correct
-description: Turn a mistake agents keep repeating in a repository into one that cannot happen, by structure first and instructions last. Use when the user says an agent made the same mistake again, asks to enforce a rule instead of restating it, or says "correct".
+description: Turn a mistake agents keep repeating in a repository into one that cannot happen, by structure first and instructions last. Use when the user says an agent made the same mistake again, asks to enforce a rule instead of restating it, or invokes /correct.
 ---
 
 # Correct
@@ -20,7 +20,7 @@ Read recent commits, reverts, pull request review comments, the agent instructio
 3. **A test of the behavior.** Fix or delete any test that still passes when the behavior it checks breaks, or that fails when only the internals change.
 4. **An instruction, last, and only for judgment calls.** Nothing fails when an agent skips it.
 
-An architecture change is a material decision: present the class, its evidence and the smallest change, and wait for the user before making it.
+An architecture change is a material decision: ask the user through the question tool, with the class, its evidence and the smallest change, before making it.
 
 ## Fix and prove
 
