@@ -4,9 +4,9 @@ This repository is the source of truth for personal agent skills created or revi
 
 ## Layout
 
-- Keep installable skills in `skills/<skill-name>/`.
+- Keep standalone skills in `skills/<skill-name>/` and T3 plugin skills in `t3-code-plugin/skills/<skill-name>/`.
 - Keep task-specific design notes in `plans/` only when a plan is requested or needed.
-- Expose each installed skill with an individual symlink at `~/.agents/skills/<skill-name>`.
+- Expose standalone skills through `~/.agents/skills/<skill-name>` → repository source and `~/.claude/skills/<skill-name>` → the agents link. Install plugin skills through the plugin catalog.
 
 ## Skill work
 
@@ -14,8 +14,8 @@ For every skill creation or revision, first read both the complete canonical `$s
 
 1. Read the complete existing skill and every directly linked instruction before editing it.
 2. Make the smallest change that satisfies the request; add scripts, references, assets, or metadata only when they have a concrete use.
-3. Keep one authoritative copy under `skills/`. Never copy a second editable version into `~/.agents/skills`.
-4. For a new local skill, create its per-skill symlink only after confirming that the destination name is unused.
-5. Run the skill-creator validator and verify the local symlink resolves to the repository copy before completion.
+3. Keep one authoritative copy in the appropriate repository skill folder. Installed links and plugin caches are not editable sources.
+4. For a new standalone skill, confirm the destination name is unused in both link locations before creating links.
+5. Run the skill-creator validator. For standalone installation work, verify both links resolve to the repository copy; for plugin work, follow the checks in the local authoring workflow.
 
 Do not modify a harness's managed `.system` skills or plugin cache as part of ordinary local skill work.
