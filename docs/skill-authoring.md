@@ -30,6 +30,8 @@ python scripts/check-t3-tools.py /home/tnnrpolley21/Workspaces/Applications/t3co
 
 Run it when validating the plugin and from the T3 fork's daily upstream sync after tool renames arrive. Wiring that external sync is separate from editing this repository.
 
+Claude and Codex each install a copy of the plugin, so a merged plugin change reaches agents only after `scripts/refresh-t3-plugin.sh` runs from the main checkout; new threads then load it.
+
 Plugin caches, bundled `.system` skills, generated task artifacts, and copied install trees are not source locations.
 
 ## Review revisions

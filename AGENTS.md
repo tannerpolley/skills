@@ -16,6 +16,6 @@ For every skill creation or revision, first read both the complete canonical `$s
 2. Make the smallest change that satisfies the request; add scripts, references, assets, or metadata only when they have a concrete use.
 3. Keep one authoritative copy in the appropriate repository skill folder. Installed links and plugin caches are not editable sources.
 4. For a new standalone skill, confirm the destination name is unused in both link locations before creating links.
-5. Run the skill-creator validator. For standalone installation work, verify both links resolve to the repository copy; for plugin work, follow the checks in the local authoring workflow.
+5. Run the skill-creator validator. For standalone installation work, verify both links resolve to the repository copy; for plugin work, follow the checks in the local authoring workflow, and after merging to `main` run `scripts/refresh-t3-plugin.sh` from the main checkout so both agents load the change.
 
 Do not modify a harness's managed `.system` skills or plugin cache as part of ordinary local skill work.
