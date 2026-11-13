@@ -3,7 +3,7 @@
 Use this template for the successor prompt. Replace required placeholders with observed facts; keep evidence bounded and point to full artifacts by absolute path.
 
 ```markdown
-You are taking over from an oversized Codex thread. Continue from this handoff; do not restart the task or merely acknowledge the takeover.
+You are taking over from an T3 thread. Continue from this handoff; do not restart the task or merely acknowledge the takeover.
 
 Verify the workspace, current state, and known-good check, then execute the first authorized action in `## Next Steps`. Preserve unresolved decisions and recovery pauses. Continue through authorized phases until the endpoint or a genuine blocker; report concrete results.
 
@@ -21,7 +21,7 @@ Verify the workspace, current state, and known-good check, then execute the firs
 
 ## Source Thread
 - Thread id: <exact source thread id>
-- Host id: <exact source host id, when available>
+- Environment id: <exact source environment id, when available>
 
 ## Workspace
 - Path: <absolute path>
@@ -30,7 +30,7 @@ Verify the workspace, current state, and known-good check, then execute the firs
 
 ## Source Execution Settings
 - Model: <exact source model id>
-- Thinking: <exact source thinking level>
+- Options and modes: <exact source options, runtime and interaction modes>
 
 ## User Constraints
 - <Durable instructions, approvals, forbidden actions, style rules, deadlines>

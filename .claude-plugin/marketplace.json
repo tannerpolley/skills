@@ -1,0 +1,12 @@
+{
+  "name": "tannerpolley-skills",
+  "owner": {
+    "name": "Tanner Polley"
+  },
+  "plugins": [
+    {
+      "name": "t3-code",
+      "source": "./t3-code-plugin"
+    }
+  ]
+}

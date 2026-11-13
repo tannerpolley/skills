@@ -1,5 +1,5 @@
 ---
-name: project-artifacts
+name: artifacts
 description: Pinning files as T3 project artifacts. Use when adding, renaming or describing an artifact with t3_project_artifacts_add or t3_project_artifacts_update, or tidying a project's Artifacts list.
 ---
 

@@ -1,5 +1,5 @@
 ---
-name: jupyter-notebooks
+name: notebooks
 description: Jupyter notebooks in the owner's research projects. Use when presenting an analysis or results as an `.ipynb`, running a notebook, or opening one for the owner to run cells in T3.
 ---
 
